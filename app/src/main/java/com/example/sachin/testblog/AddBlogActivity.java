@@ -37,11 +37,7 @@ public class AddBlogActivity extends Activity {
         ParseObject post = new ParseObject("Post");
         post.put("postContent",postContent.getText().toString());
 
-        ParseUser user = new ParseUser();
-        user.setUsername("Sachin");
-        user.put("Position","New Orleans");
-
-        post.put("author",user.getUsername());
+        post.put("user",ParseUser.getCurrentUser());
 
         post.saveInBackground(new SaveCallback() {
             @Override

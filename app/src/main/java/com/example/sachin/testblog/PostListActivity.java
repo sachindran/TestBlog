@@ -69,16 +69,16 @@ public class PostListActivity extends ListActivity {
 		// Restrict to cases where the author is the current user.
 		// Note that you should pass in a ParseUser and not the
 		// String reperesentation of that user
-		query.whereEqualTo("author", "Sachin");
+		query.whereEqualTo("user", ParseUser.getCurrentUser());
 		// Run the query
-		query.findInBackground(new FindCallback<ParseObject>() {
+		query.findInBackground( new FindCallback<ParseObject>() {
             @Override
-            public void done(List<ParseObject> postList, ParseException e) {
+            public void done(List<ParseObject> parseObjects, ParseException e) {
                 if (e == null) {
                     // If there are results, update the list of posts
                     // and notify the adapter
                     posts.clear();
-                    for (ParseObject post : postList) {
+                    for (ParseObject post : parseObjects) {
                         posts.add(post.getString("textContent"));
                     }
                     ((ArrayAdapter<String>) getListAdapter())
