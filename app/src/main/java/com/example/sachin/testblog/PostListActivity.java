@@ -74,6 +74,7 @@ public class PostListActivity extends ListActivity {
         //query.whereEqualTo("")
 		// Run the query
 
+
 		query.findInBackground( new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
