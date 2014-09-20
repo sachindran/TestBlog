@@ -37,22 +37,28 @@ public class AddBlogActivity extends Activity {
         ParseObject post = new ParseObject("Post");
         post.put("postContent",postContent.getText().toString());
 
-        post.put("user",ParseUser.getCurrentUser());
 
-        post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(com.parse.ParseException e) {
-            if (e == null) {
-                    setResult(RESULT_OK);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Error saving: " + e.getMessage(),
-                            Toast.LENGTH_SHORT)
-                            .show();
+        post.put("user",ParseUser.getCurrentUser());
+        try {
+            post.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(com.parse.ParseException e) {
+                    if (e == null) {
+                        setResult(RESULT_OK);
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "Error saving: " + e.getMessage(),
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
                 }
-            }
-        });
+            });
+        }
+        catch(Exception e)
+        {
+               
+        }
     }
 
     @Override

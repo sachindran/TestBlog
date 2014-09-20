@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -70,7 +71,9 @@ public class PostListActivity extends ListActivity {
 		// Note that you should pass in a ParseUser and not the
 		// String reperesentation of that user
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
+        //query.whereEqualTo("")
 		// Run the query
+
 		query.findInBackground( new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
@@ -79,7 +82,7 @@ public class PostListActivity extends ListActivity {
                     // and notify the adapter
                     posts.clear();
                     for (ParseObject post : parseObjects) {
-                        posts.add(post.getString("textContent"));
+                        posts.add(post.getString("postContent"));
                     }
                     ((ArrayAdapter<String>) getListAdapter())
                             .notifyDataSetChanged();
