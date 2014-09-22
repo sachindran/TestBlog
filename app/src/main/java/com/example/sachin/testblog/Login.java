@@ -47,56 +47,63 @@ public class Login extends Activity{
 		onCreateParse();
 		//Calling ParseAnalytics to see Analytics of our app
 		ParseAnalytics.trackAppOpened(getIntent());
-		
-		// creating connection detector class instance
-		cd = new ConnectionDetector(getApplicationContext());
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null)
+        {
+            loginSuccessful();
+        }
+        else
+        {
+            // creating connection detector class instance
+            cd = new ConnectionDetector(getApplicationContext());
 
-		btn_LoginIn = (Button) findViewById(R.id.btn_login);
-		btn_SignUp = (Button) findViewById(R.id.btn_signup);
-		btn_ForgetPass = (Button) findViewById(R.id.btn_ForgetPass);
-		mUserNameEditText = (EditText) findViewById(R.id.username);
-		mPasswordEditText = (EditText) findViewById(R.id.password);
+            btn_LoginIn = (Button) findViewById(R.id.btn_login);
+            btn_SignUp = (Button) findViewById(R.id.btn_signup);
+            btn_ForgetPass = (Button) findViewById(R.id.btn_ForgetPass);
+            mUserNameEditText = (EditText) findViewById(R.id.username);
+            mPasswordEditText = (EditText) findViewById(R.id.password);
 
 
-		btn_LoginIn.setOnClickListener(new OnClickListener() {
+            btn_LoginIn.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 
-				// get Internet status
-				isInternetPresent = cd.isConnectingToInternet();
-				// check for Internet status
-				if (isInternetPresent) {
-					// Internet Connection is Present
-					// make HTTP requests
-					attemptLogin();
-				} else {
-					// Internet connection is not present
-					// Ask user to connect to Internet
-					showAlertDialog(Login.this, "No Internet Connection",
-							"You don't have internet connection.", false);
-				}
+                    // get Internet status
+                    isInternetPresent = cd.isConnectingToInternet();
+                    // check for Internet status
+                    if (isInternetPresent) {
+                        // Internet Connection is Present
+                        // make HTTP requests
+                        attemptLogin();
+                    } else {
+                        // Internet connection is not present
+                        // Ask user to connect to Internet
+                        showAlertDialog(Login.this, "No Internet Connection",
+                                "You don't have internet connection.", false);
+                    }
 
-			}
-		});
+                }
+            });
 
-		btn_SignUp.setOnClickListener(new OnClickListener() {
+            btn_SignUp.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Intent in =  new Intent(Login.this,SignUp.class);
-				startActivity(in);
-			}
-		});
-		
-		btn_ForgetPass.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				//Intent in =  new Intent(Login.this,ForgetParsePassword.class);
-				//startActivity(in);
-			}
-		});
+                @Override
+                public void onClick(View v) {
+                    Intent in = new Intent(Login.this, SignUp.class);
+                    startActivity(in);
+                }
+            });
+
+            btn_ForgetPass.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    //Intent in =  new Intent(Login.this,ForgetParsePassword.class);
+                    //startActivity(in);
+                }
+            });
+        }
 
 
 
@@ -191,7 +198,7 @@ public class Login extends Activity{
 		startActivity(in);
 	}
 	protected void loginUnSuccessful() {
-		Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Login Unsuccessful", Toast.LENGTH_SHORT).show();
 		showAlertDialog(Login.this,"Login", "Username or Password is invalid.", false);
 	}
 

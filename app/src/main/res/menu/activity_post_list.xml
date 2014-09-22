@@ -3,6 +3,11 @@
         android:title="@string/menu_title"
         android:orderInCategory="100"
         android:showAsAction="never" />
+
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
     
     <item
         android:id="@+id/action_refresh"

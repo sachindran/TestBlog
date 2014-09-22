@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -59,6 +60,10 @@ public class PostListActivity extends ListActivity {
 			newPost();
 			break;
 		}
+            case R.id.logout:
+            {
+                logout();
+            }
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -109,4 +114,14 @@ public class PostListActivity extends ListActivity {
 		}
 	}
 
+    private void logout()
+    {
+        ParseUser.logOut();
+        if(ParseUser.getCurrentUser()==null)
+        {
+            Toast.makeText(getApplicationContext(),"Logout successful",Toast.LENGTH_SHORT).show();
+            Intent in =  new Intent(PostListActivity.this,Login.class);
+            startActivity(in);
+        }
+    }
 }
