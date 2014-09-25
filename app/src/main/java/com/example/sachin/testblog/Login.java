@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +44,7 @@ public class Login extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-		//Initializing Parse SDK
+        //Initializing Parse SDK
 		onCreateParse();
 		//Calling ParseAnalytics to see Analytics of our app
 		ParseAnalytics.trackAppOpened(getIntent());
@@ -230,7 +231,19 @@ public class Login extends Activity{
 		alertDialog.show();
 	}
 
-
-
-
+    /*@Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch(keyCode){
+            case KeyEvent.KEYCODE_BACK:
+                this.finish();
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+*/
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
